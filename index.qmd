@@ -313,6 +313,76 @@ The `glimspe()` function is very useful when looking at the data, especially if 
 glimpse(mpg)
 ```
 
+### Functions
+
+Functions are the R equivalent of SAS macros. 
+R has a large number of inbuilt functions, such as `seq()`, mean()`, `sum()`, `lm()`.^[A note on notation: if I am refering to a function in R, I will always include brackets at the end `()`.]
+
+Type `?seq` into the console. If you start typing, *e.g.* `?s`, and then press TAB, RStudio will give you a list of available help files for functions beginning with 's'. This autocomplete feature is very useful, and works for functions, variables, and everything inbetween. Looking at the `seq()` help file, we can use the `from = ` and `to = ` argument toproduce a sequence from 1 to 10.
+
+```{r}
+seq(from = 1, to = 10)
+```
+
+But, we don't always need to write the argument names.
+
+```{r}
+seq(1, 10)
+```
+
+It also doesn't have to have increments of 1.
+
+```{r}
+seq(1, 10, by = 0.5) # <1>
+```
+
+1. Except the first one or two arguments (function dependent) I would always use argument names.
+
+```{r}
+seq(1, 10, length.out = 14)
+```
+
+#### Dealing with `NA`'s
+
+Missing data values in R appear as `NA`. We can create vectors with missing values.
+
+```{r}
+x1 <- c(1, -3, NA, 7, 17.2)
+```
+
+Lets use the `mean()` function to calculate the mean of `x1`.
+
+```{r}
+mean(x1)
+```
+
+The output is ``r mean(x1)``, which is sensible.^[R cannot read your mind, so doesn't know what to do with the missing value(s).] But, we can tell R to ignore the `NA` values when calculating the mean. Have a look at the help file, `?mean`, and see if you can do this.^[Hint: use the `na.rm` argument.]
+
+#### Creating our own function
+
+Suppose we want to add together two numbers and divide by 5. We can do this in the console like so:
+```{r}
+number1 <- 6
+number2 <- 12
+
+(number1 + number2) / 5
+```
+
+Sometimes creating a function makes your code more readible and reduces repetition. Lets make a function that has two inputs, adds them together and divides by 5.
+
+```{r}
+add_then_divide <- function(x, y) {
+  add_together <- x + y
+  divide_by_five <- add_together / 5
+  divide_by_five
+}
+```
+
+Then, we can use this function to perform the operation.
+```{r}
+add_then_divide(x = number1, y = number2)
+```
+
 ## Creating a plot
 
 In this chapter, we are going to produce a plot that looks like @fig-ggplot-outcome. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions^[e.g. try typing `plot(density(rnorm(100)))` to create a kernel density plot of 100 standard normal realisations.], but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.

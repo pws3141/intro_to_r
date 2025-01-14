@@ -732,7 +732,23 @@ The `mutate()` function creates new columns that are functions of existing varia
 # square the body mass
 penguins |>
   mutate(body_mass_squared_g = body_mass_g^2)
+```
+Look at the last line of the output above, `3 more variables: sex <fct>, year <int>, body_mass_squared_g <dbl>`. Our new variable is there, but is hidden. The `mutate()` function always includes new columns at the end of the dataset. Here, we can use `glimpse()` to be able to see our new column. We can also tell `mutate()` where we want it to put the column.^[Before going on, see if you can figure out how to do this by looking at the help file, `?mutate`.]
+```{r}
+# using glimpse()
+penguins |>
+  mutate(body_mass_squared_g = body_mass_g^2) |>
+  glimpse() # <1>
+```
+```{r}
+# telling mutate() that we want the column to go after the 'body_mass_g' column
+penguins |>
+  mutate(body_mass_squared_g = body_mass_g^2, .after = body_mass_g) |>
+  glimpse()
+```
+1. Notice that `glimpse()` doesn't have any arguments. That is because the pipe `|>` inputs the data into the argument of `glimpse()`.
 
+```{r}
 # normalise the bill depth by the sample mean
 penguins |>
   mutate(bill_depth_norm = bill_depth_mm / mean(bill_depth_mm, na.rm = TRUE))
@@ -837,6 +853,8 @@ penguins_grouped |>
   arrange(body_mass_g, .by_group = TRUE)
 ```
 
+## Linear and logistic regression
+
 ## Performing survival analysis
 
 To perform survival analysis in R, we need to get the [{survival} package](https://cran.r-project.org/package=survival).
@@ -845,10 +863,12 @@ To perform survival analysis in R, we need to get the [{survival} package](https
 library(survival)
 ```
 
+### Loading the example data
+
 The {survival} package comes with lots of example dataset (write `data(package = "survival")` to see a list of them). We will be using the `lung` dataset. Currently, `lung` is a `data.frame`^[which can be seen by calling `class(lung)`], so lets convert to a tibble and view it.
 
 ```{r}
-lung <- tibble(lung)
+lung <- as_tibble(lung)
 
 glimpse(lung)
 ```
@@ -866,6 +886,17 @@ We can look at the help file to see the desciptions of the variables by writing 
 - `meal.cal`: Calories consumed at meals  
 - `wt.loss`: Weight loss in last six months (pounds)  
 
+First, notice that all these variables are coded as `<dbl>`, *i.e.* floating point numbers. I want `inst`, `status`, `sex`, and `ph.ecog` to be factors. To do this, we use the `as_factor()` function from the {forcats} package (included in the tidyverse). Lets also change the levels of `sex` to "Male" and "Female" to make it clearer.
+
+```{r}
+lung <- lung |> # <1>
+  mutate(
+    across(c(inst, status, sex, ph.ecog), as_factor), # convert variables to factors
+    sex = fct_recode(sex, Male = "1", Female = "2") # recode "1" to "Male" and "2" to "Female"
+  )
+```
+1. Here we are replacing the original `lung` dataset with our new one.
+
 Lets have a look at how many individuals were censored, and how many died.
 ```{r}
 lung |>
@@ -879,15 +910,112 @@ lung_counts <- lung |>
   select(n)
 ```
 
-So, we have `r lung_counts[1,]` individuals who were censored, and `r lung_counts[2,]` who died. The first thing to notice here is that the `status` variable is coded in a unusual way. Normally, this variable would be `0` for alive and `1` for dead. So, lets recode.
+So, we have `r lung_counts[1,]` individuals who were censored, and `r lung_counts[2,]` who died. The first thing to notice here is that the `status` variable is coded in a unusual way. Normally, this variable would be `0` for censored and `1` for dead. So, lets recode. Normally we would use the `recode()` function, but as we are dealing with factors, we can use `fct_recode()` instead.^[The `recode()` function would still work, but it transforms the column back to a `<dbl>`.]
 
 ```{r}
 lung <- lung |>
   mutate(
-    status = recode(status, `1` = 0, `2` = 1)
-    )
-
+    status = fct_recode(status, `0` = "1", `1` = "2") 
+  )
 # check that the frequency is still the same, but with the new coding
 lung %>%
   count(status)
 ```
+
+OK, we have a nicer dataset now. Lets look at doing some survival analysis.
+
+### Creating a survival object
+
+The core functions of the {survival} package include:
+
+- `Surv()`: Creates a survival object.
+- `survfit()`: Fits a survival curve using either a formula, of from a previously fitted Cox model.
+- `coxph()`: Fits a Cox proportional hazards regression model.
+- `cox.zph()`: Tests the proportional hazards assumption of a Cox regression model.
+- `survdiff()`: Tests for differences in survival between two groups using a log-rank / Mantel-Haenszel test.6
+
+To create a survival object from our `lung` dataset, we can run the following.
+
+```{r}
+s <- Surv(lung$time, lung$status)
+
+# lets look at the first ten elements of the output
+s[1:10]
+```
+Run `class(s)` is your console to check that `s` is a survival object, `Surv`. The elements of a survival object are in the format `<time>:<status>` or `<time>+`, where
+
+- `<time>` is the survival time (here, days).
+- `<status>` indicates whether the event occurred (`1` for death) or the observation was censored (`0` for censored).
+- The `+` symbol represents censored observations.
+
+For example,
+
+- `306:1:` This individual died after 306 days.
+- `1022+:` This individual was alive (censored) after 1022 days.
+- `731:1:` This individual died after 731 days.
+
+::: {.callout-note}
+# Did we need to recode the `status` variable?
+
+Run `?Surv` in the console and have a look at the "Note" section near the bottom. 
+
+*A question*: what would the output look like if we didn't record the `status` variable to 0 / 1?
+:::
+
+### Fitting a survival curve
+
+To fit a survival curve, we use the `survfit()` function. To create a simple survival curve that doesn't consider any different groupings, we just specify the intercept, `~1`, in the `formula` argument.^[Look at `?survfit` for help.]
+
+```{r}
+sfit <- survfit(s ~ 1) #<1>
+
+sfit
+```
+
+1. There are different ways to write this. For example, if we hadn't already created our survival object `s`, we could do it all in one line, `survfit(Surv(time, status) ~ 1, data = lung)`
+
+The output from `sfit` shows some things,[^note2] but for a more interesting output, we can use the `summary()` function to show the number at risk and the cumulative survival at each event.
+Here, I have put the output of the `summary()` function into a different tab, so that it doesn't take up lots of space.
+
+[^note2]: The key components of `sfit` are:
+
+    - `n`: The total number of individuals in the dataset (228).
+    - `nevent`: The number of events (deaths) observed in the data (165).
+    - `rmean`: The restricted mean survival time (time spent in a particular state up to a maximum time of 1022 days). It is broken into two states:
+      - `(s0)`: Time in the "alive" state before transitioning (376.27 days on average).
+      - `1`: Time in the "event" state (645.73 days on average).
+    - `se(rmean)`: Standard error of the restricted mean survival time.
+
+  
+::: {.panel-tabset}
+
+# R code
+```{r}
+#| eval: false
+
+summary(sfit)
+```
+
+# Output
+```{r}
+#| echo: false
+
+summary(sfit)
+```
+
+:::
+
+The `summary()` function gives a more detailed breakdown of the Kaplan-Meier survival curve at specific time points, including:
+
+- `time`: Specific time points where an event (death) occurred or censoring was recorded.
+- `n.risk`: The number of individuals at risk of experiencing the event at that time.
+- `n.event`: The number of events (deaths) that occurred at each time point.
+- `Pr((s0))`: The survival probability (*i.e.* the probability of staying in the initial state (alive) at that time).
+- `Pr(1)`: The cumulative probability of transitioning to the event state (death), *i.e.* $1 - $ survival probability.
+
+For example, at `time = 5`, we have:
+
+- `n.risk`: 228 individuals at risk at day 5.
+- `n.event`: 1 individual died at day 5.
+- `Pr((s0)) = 0.9956`: Survival probability after day 5 is 99.56%.
+- `Pr(1) = 0.00439`: Cumulative probability of death by day 5 is 0.44%.

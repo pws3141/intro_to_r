@@ -164,7 +164,7 @@ X <- matrix(data = 1:12, nrow = 3)
 X
 ```
 
-Here, we have coerced a vector `1:12` into a matrix with three rows. The elements have been inserted into the matrix column-wise. The object `matrix()` is actually a function^[similar to a macro in SAS], and we can look at the help file by typing `?matrix` into the console. Under 'Usage', we can see that the `matrix()` function has the following arguments:^[Here, the equals sign is used as opposed to `<-` as we are assigning values to function arguments.]
+Here, we have coerced a vector `1:12` into a matrix with three rows. The elements have been inserted into the matrix column-wise. The object `matrix()` is actually a function^[similar to a macro in SAS], which we will discuss later in @sec-gettingStarted-functions. We can look at the help file by typing `?matrix` into the console. Under 'Usage', we can see that the `matrix()` function has the following arguments:^[Here, the equals sign is used as opposed to `<-` as we are assigning values to function arguments.]
 
 ```
 matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
@@ -316,9 +316,9 @@ glimpse(mpg)
 ### Functions
 
 Functions are the R equivalent of SAS macros. 
-R has a large number of inbuilt functions, such as `seq()`, mean()`, `sum()`, `lm()`.^[A note on notation: if I am refering to a function in R, I will always include brackets at the end `()`.]
+R has a large number of inbuilt functions, such as `seq()`, `mean()`, `sum()`, `lm()`.^[A note on notation: if I am refering to a function in R, I will always include brackets at the end `()`.]
 
-Type `?seq` into the console. If you start typing, *e.g.* `?s`, and then press TAB, RStudio will give you a list of available help files for functions beginning with 's'. This autocomplete feature is very useful, and works for functions, variables, and everything inbetween. Looking at the `seq()` help file, we can use the `from = ` and `to = ` argument toproduce a sequence from 1 to 10.
+Type `?seq` into the console. If you start typing, *e.g.* `?s`, and then press TAB, RStudio will give you a list of available help files for functions beginning with 's'. This autocomplete feature is very useful, and works for functions, variables, arguments and most things inbetween. Looking at the `seq()` help file, we can use the `from = ` and `to = ` argument to produce a sequence from 1 to 10.
 
 ```{r}
 seq(from = 1, to = 10)
@@ -338,13 +338,15 @@ seq(1, 10, by = 0.5) # <1>
 
 1. Except the first one or two arguments (function dependent) I would always use argument names.
 
+We can specify the length instead of the increments.
+
 ```{r}
 seq(1, 10, length.out = 14)
 ```
 
 #### Dealing with `NA`'s
 
-Missing data values in R appear as `NA`. We can create vectors with missing values.
+Missing data values in R appear as `NA`. We can create vectors (or matrices, dataframes, tibbles) with missing values.
 
 ```{r}
 x1 <- c(1, -3, NA, 7, 17.2)
@@ -358,7 +360,7 @@ mean(x1)
 
 The output is ``r mean(x1)``, which is sensible.^[R cannot read your mind, so doesn't know what to do with the missing value(s).] But, we can tell R to ignore the `NA` values when calculating the mean. Have a look at the help file, `?mean`, and see if you can do this.^[Hint: use the `na.rm` argument.]
 
-#### Creating our own function
+#### Creating our own function {#sec-gettingStarted-functions}
 
 Suppose we want to add together two numbers and divide by 5. We can do this in the console like so:
 ```{r}
@@ -383,7 +385,7 @@ Then, we can use this function to perform the operation.
 add_then_divide(x = number1, y = number2)
 ```
 
-## Creating a plot
+## Creating a plot {#sec-gettingStarted-plot}
 
 In this chapter, we are going to produce a plot that looks like @fig-ggplot-outcome. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions^[e.g. try typing `plot(density(rnorm(100)))` to create a kernel density plot of 100 standard normal realisations.], but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.
 
@@ -669,7 +671,171 @@ We finally have a plot that matches that shown in @fig-ggplot-outcome!
 
 ## The Tidyverse
 
+The tidyverse is a set of tools, originally created by [Hadley Wickham](https://hadley.nz/). All the packages within tidyverse share the same underlying design philosophy. 
 
+One key idea of the tidyverse is the *pipe*, either `%>%` or `|>`. The pipe can be thought of as a process for taking a tibble (or dataframe) on the left, and performing some function to it on the right. For example, to take the `penguins` dataset used in @sec-gettingStarted-plot and add a new variable that is the sum of the `bill_length_mm` and `flipper_length_mm`, we can use the `mutate()` function (from the [{dplyr} package](https://dplyr.tidyverse.org/)).
+
+```{r}
+penguins |>
+  mutate(sum_of_bill_flipper = bill_length_mm + flipper_length_mm) |> # <1>
+  glimpse()
+```
+1. Notice that here, we do not need to write `penguins$bill_length_mm`. This is because the pipe is telling `mutate()` that the dataset is `penguins`.
+
+::: {.callout-important}
+
+# The Pipe
+
+Because of how popular the pipe has become, the pipe `|>` is now included in base R. The other pipe, `%>%`, is from the {magrittr} package. I will just use the base pipe here `|>`, although there are some slight differences as explained in the [tidyverse blog](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/). 
+
+Note that if your version of R is less that 4.1.0, the base pipe is not available. Therefore you will have to load tidyverse, `library(tidyverse)`, and use the {magrittr} pipe `%>%`.
+:::
+
+### Examples of data wrangling in the tidyverse
+
+Sticking with our `penguins` dataset, lets do some wrangling. Here we use functions that are part of the {dplyr} package, which is included in the tidyverse.
+
+What if we want to find the average bill length per year?
+
+```{r}
+penguins |> # <1>
+  group_by(year) |> # <2>
+  summarise(average_bill = mean(bill_length_mm, na.rm = TRUE)) # <3>
+```
+
+1. Start with the `penguins` dataset
+2. Group by the year, so any functions after this point are performed on each year seperately
+3. Use the [`summarise` function](https://dplyr.tidyverse.org/reference/summarise.html) to find the mean. We need to use `na.rm = TRUE` to remove the `NA` values.
+
+We haven't saved this summary dataset, as we did not assign it to a new variable.[^note1]
+
+[^note1]: To assign it to a variable we need to use the `<-` operator:  
+    ```{r}
+    penguins_year_summary <- penguins |>
+      group_by(year) |>
+      summarise(average_bill = mean(bill_length_mm, na.rm = TRUE))
+    ```
+
+We can group by multiple variables. Here, we are finding the average bill length for each year and each species.
+
+```{r}
+penguins |>
+  group_by(year, species) |> 
+  summarise(average_bill = mean(bill_length_mm, na.rm = TRUE)) 
+```
+
+#### Using `mutate()`
+
+The `mutate()` function creates new columns that are functions of existing variables. It can also modify and delete columns.
+
+```{r}
+# square the body mass
+penguins |>
+  mutate(body_mass_squared_g = body_mass_g^2)
+
+# normalise the bill depth by the sample mean
+penguins |>
+  mutate(bill_depth_norm = bill_depth_mm / mean(bill_depth_mm, na.rm = TRUE))
+```
+
+Performing operations on multiple columns: here we are using the `across()` function to round the columns `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm` to the nearest integer. Note that here the columns are overwritten.
+
+```{r}
+penguins |>
+  mutate(across(c(bill_length_mm, bill_depth_mm, flipper_length_mm), round))
+```
+
+#### Using `select()`
+
+We can use `select()` to select columns. The `:` operator selects a range of consecutive variables. The `!` operator negates a selection.
+
+```{r}
+penguins |>
+  select(sex)
+
+penguins |>
+  select(body_mass_g:year)
+
+penguins |>
+  select(!sex)
+```
+
+You can also select based on the name of the variables. Here we will select all variables that end with "_mm".^[See the [tidyselect website](https://tidyselect.r-lib.org/reference/starts_with.html) for more information on pattern matching.]
+
+```{r}
+penguins |>
+  select(ends_with("_mm"))
+```
+
+Or, all variables that do not end in "_mm", using the `!` operator.
+```{r}
+penguins |>
+  select(!ends_with("_mm"))
+```
+
+#### Using `filter()`
+
+The [`filter()` function](https://dplyr.tidyverse.org/reference/filter.html) keeps rows that match a condition.
+
+For example, if we want to keep all rows that satisfy some condition on the bill length.
+```{r}
+# bill length must be greater than 40mm
+penguins |>
+  filter(bill_length_mm > 40)
+
+# bill length less than or equal to 35mm
+penguins |>
+  filter(bill_length_mm <= 35)
+
+# bill length is greater than the mean bill length
+penguins |>
+  filter(bill_length_mm > mean(bill_length_mm, na.rm = TRUE))
+
+```
+
+We can also filter after grouping the variables. For example, if we want to only keep rows where the bill length is less than the mean bill length *for that specific species*, we can group by species before filtering.
+
+```{r}
+penguins |>
+  group_by(species) |>
+  filter(bill_length_mm > mean(bill_length_mm, na.rm = TRUE))
+```
+
+In the ungrouped version, `filter()` compares the value of `bill_length_mm` in each row to the global average (taken over the whole data set), keeping only the rows with `bill_length_mm` greater than this global average. In contrast, the grouped version calculates the average `bill_length_mm` separately for each `species` group, and keeps rows with `bill_length_mm` greater than the relevant within-species average.
+
+#### Using `arrange()`
+
+We can use `arrange()` to order the rows of a data frame.
+
+```{r}
+# arrange by body mass in ascending order
+penguins |>
+  arrange(body_mass_g)
+
+# arrange by body mass in descending order
+penguins |>
+  arrange(desc(body_mass_g))
+
+# arrange by bill length and flipper length
+penguins |>
+  arrange(bill_length_mm, flipper_length_mm)
+```  
+
+Note that `arrange()` ignores groupings unless specifically told not to. Have a look at the help file, `?arrange` to see for yourself.
+
+```{r}
+# group penguins by species
+penguins_grouped <- penguins |> 
+  group_by(species)
+
+# arrange() ignores grouping
+penguins_grouped |>
+  arrange(body_mass_g)
+
+# telling arrange() not to ignore the grouping
+penguins_grouped |>
+  arrange(body_mass_g, .by_group = TRUE)
+```
 
 ## Performing survival analysis
 

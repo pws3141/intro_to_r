@@ -3281,13 +3281,16 @@ window.Quarto = {
   <li><a href="#tibbles" id="toc-tibbles" class="nav-link" data-scroll-target="#tibbles">Tibbles</a></li>
   <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
   </ul></li>
-  <li><a href="#creating-a-plot" id="toc-creating-a-plot" class="nav-link" data-scroll-target="#creating-a-plot">Creating a plot</a>
+  <li><a href="#sec-gettingStarted-plot" id="toc-sec-gettingStarted-plot" class="nav-link" data-scroll-target="#sec-gettingStarted-plot">Creating a plot</a>
   <ul class="collapse">
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
   <li><a href="#creating-a-ggplot" id="toc-creating-a-ggplot" class="nav-link" data-scroll-target="#creating-a-ggplot">Creating a ggplot</a></li>
   <li><a href="#adding-aesthetics-and-layers" id="toc-adding-aesthetics-and-layers" class="nav-link" data-scroll-target="#adding-aesthetics-and-layers">Adding aesthetics and layers</a></li>
   </ul></li>
-  <li><a href="#the-tidyverse" id="toc-the-tidyverse" class="nav-link" data-scroll-target="#the-tidyverse">The Tidyverse</a></li>
+  <li><a href="#the-tidyverse" id="toc-the-tidyverse" class="nav-link" data-scroll-target="#the-tidyverse">The Tidyverse</a>
+  <ul class="collapse">
+  <li><a href="#examples-of-data-wrangling-in-the-tidyverse" id="toc-examples-of-data-wrangling-in-the-tidyverse" class="nav-link" data-scroll-target="#examples-of-data-wrangling-in-the-tidyverse">Examples of data wrangling in the tidyverse</a></li>
+  </ul></li>
   <li><a href="#performing-survival-analysis" id="toc-performing-survival-analysis" class="nav-link" data-scroll-target="#performing-survival-analysis">Performing survival analysis</a></li>
   </ul>
 </nav>
@@ -3511,7 +3514,7 @@ length</code></pre>
 [3,]    3    6    9   12</code></pre>
 </div>
 </div>
-<p>Here, we have coerced a vector <code>1:12</code> into a matrix with three rows. The elements have been inserted into the matrix column-wise. The object <code>matrix()</code> is actually a function<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, and we can look at the help file by typing <code>?matrix</code> into the console. Under ‘Usage’, we can see that the <code>matrix()</code> function has the following arguments:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>Here, we have coerced a vector <code>1:12</code> into a matrix with three rows. The elements have been inserted into the matrix column-wise. The object <code>matrix()</code> is actually a function<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, which we will discuss later in <a href="#sec-gettingStarted-functions" class="quarto-xref">Section 2.5.2</a>. We can look at the help file by typing <code>?matrix</code> into the console. Under ‘Usage’, we can see that the <code>matrix()</code> function has the following arguments:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup> similar to a macro in SAS</p></div><div id="fn4"><p><sup>4</sup> Here, the equals sign is used as opposed to <code>&lt;-</code> as we are assigning values to function arguments.</p></div></div><pre><code>matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
        dimnames = NULL)</code></pre>
 <p>Arguments can either be called using the name, <em>e.g.</em> <code>data =</code>, or by their position. Often, the first one or two arguments are so regularly used that they are not called explicitly. For example, the following will produce the exact same matrix.</p>
@@ -3753,8 +3756,8 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 </section>
 <section id="functions" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="functions">Functions</h3>
-<p>Functions are the R equivalent of SAS macros. R has a large number of inbuilt functions, such as <code>seq()</code>, mean()<code>,</code>sum()<code>,</code>lm()<code>.^[A note on notation: if I am refering to a function in R, I will always include brackets at the end</code>()`.]</p>
-<p>Type <code>?seq</code> into the console. If you start typing, <em>e.g.</em> <code>?s</code>, and then press TAB, RStudio will give you a list of available help files for functions beginning with ‘s’. This autocomplete feature is very useful, and works for functions, variables, and everything inbetween. Looking at the <code>seq()</code> help file, we can use the <code>from =</code> and <code>to =</code> argument toproduce a sequence from 1 to 10.</p>
+<p>Functions are the R equivalent of SAS macros. R has a large number of inbuilt functions, such as <code>seq()</code>, <code>mean()</code>, <code>sum()</code>, <code>lm()</code>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup> A note on notation: if I am refering to a function in R, I will always include brackets at the end <code>()</code>.</p></div></div><p>Type <code>?seq</code> into the console. If you start typing, <em>e.g.</em> <code>?s</code>, and then press TAB, RStudio will give you a list of available help files for functions beginning with ‘s’. This autocomplete feature is very useful, and works for functions, variables, arguments and most things inbetween. Looking at the <code>seq()</code> help file, we can use the <code>from =</code> and <code>to =</code> argument to produce a sequence from 1 to 10.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3784,6 +3787,7 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 [16]  8.5  9.0  9.5 10.0</code></pre>
 </div>
 </div>
+<p>We can specify the length instead of the increments.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3793,7 +3797,7 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 </div>
 <section id="dealing-with-nas" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="dealing-with-nas">Dealing with <code>NA</code>’s</h4>
-<p>Missing data values in R appear as <code>NA</code>. We can create vectors with missing values.</p>
+<p>Missing data values in R appear as <code>NA</code>. We can create vectors (or matrices, dataframes, tibbles) with missing values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">7</span>, <span class="fl">17.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -3804,10 +3808,10 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 <pre><code>[1] NA</code></pre>
 </div>
 </div>
-<p>The output is <code>NA</code>, which is sensible.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> But, we can tell R to ignore the <code>NA</code> values when calculating the mean. Have a look at the help file, <code>?mean</code>, and see if you can do this.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup> R cannot read your mind, so doesn’t know what to do with the missing value(s).</p></div><div id="fn6"><p><sup>6</sup> Hint: use the <code>na.rm</code> argument.</p></div></div></section>
-<section id="creating-our-own-function" class="level4">
-<h4 class="anchored" data-anchor-id="creating-our-own-function">Creating our own function</h4>
+<p>The output is <code>NA</code>, which is sensible.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> But, we can tell R to ignore the <code>NA</code> values when calculating the mean. Have a look at the help file, <code>?mean</code>, and see if you can do this.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn6"><p><sup>6</sup> R cannot read your mind, so doesn’t know what to do with the missing value(s).</p></div><div id="fn7"><p><sup>7</sup> Hint: use the <code>na.rm</code> argument.</p></div></div></section>
+<section id="sec-gettingStarted-functions" class="level4">
+<h4 class="anchored" data-anchor-id="sec-gettingStarted-functions">Creating our own function</h4>
 <p>Suppose we want to add together two numbers and divide by 5. We can do this in the console like so:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>number1 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
@@ -3836,10 +3840,10 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 </section>
 </section>
 </section>
-<section id="creating-a-plot" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="creating-a-plot">Creating a plot</h2>
-<p>In this chapter, we are going to produce a plot that looks like <a href="#fig-ggplot-outcome" class="quarto-xref">Figure 3</a>. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.</p>
-<div class="no-row-height column-margin column-container"><div id="fn7"><p><sup>7</sup> e.g. try typing <code>plot(density(rnorm(100)))</code> to create a kernel density plot of 100 standard normal realisations.</p></div></div><div class="cell page-columns page-full">
+<section id="sec-gettingStarted-plot" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-gettingStarted-plot">Creating a plot</h2>
+<p>In this chapter, we are going to produce a plot that looks like <a href="#fig-ggplot-outcome" class="quarto-xref">Figure 3</a>. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.</p>
+<div class="no-row-height column-margin column-container"><div id="fn8"><p><sup>8</sup> e.g. try typing <code>plot(density(rnorm(100)))</code> to create a kernel density plot of 100 standard normal realisations.</p></div></div><div class="cell page-columns page-full">
 <div class="cell-output-display page-columns page-full">
 <div id="fig-ggplot-outcome" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
@@ -3858,10 +3862,10 @@ Figure 3: A figure showing the body mass and flipper length of three types of p
 Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for Data Science</em>. &quot; O’Reilly Media, Inc.&quot;.
 </div></div><section id="the-data" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="the-data">The data</h3>
-<p>We will use data on penguins, obtained from the <a href="https://allisonhorst.github.io/palmerpenguins/">{palmerpenguins}</a> package <span class="citation" data-cites="horst2020palmer">(<a href="#ref-horst2020palmer" role="doc-biblioref">Horst, Hill, and Gorman 2020</a>)</span>. This is a popular alternative to the <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set"><code>iris</code> dataset</a>, which was created by Ronald Fisher.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>We will use data on penguins, obtained from the <a href="https://allisonhorst.github.io/palmerpenguins/">{palmerpenguins}</a> package <span class="citation" data-cites="horst2020palmer">(<a href="#ref-horst2020palmer" role="doc-biblioref">Horst, Hill, and Gorman 2020</a>)</span>. This is a popular alternative to the <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set"><code>iris</code> dataset</a>, which was created by Ronald Fisher.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 <div class="no-row-height column-margin column-container"><div id="ref-horst2020palmer" class="csl-entry" role="listitem">
 Horst, Allison Marie, Alison Presmanes Hill, and Kristen B Gorman. 2020. <em>Palmerpenguins: Palmer Archipelago (Antarctica) Penguin Data</em>. <a href="https://doi.org/10.5281/zenodo.3960218">https://doi.org/10.5281/zenodo.3960218</a>.
-</div><div id="fn8"><p><sup>8</sup> who was a eugenicist and took money from the tobacco industry to muddy the waters.</p></div><div id="fn9"><p><sup>9</sup> Hint, use <code>install.packages()</code></p></div></div><p>First, you will need to install the {palmerpenguins} package.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> Then, load the package into R, using <code>library()</code>. Then, the dataset can be viewed by:</p>
+</div><div id="fn9"><p><sup>9</sup> who was a eugenicist and took money from the tobacco industry to muddy the waters.</p></div><div id="fn10"><p><sup>10</sup> Hint, use <code>install.packages()</code></p></div></div><p>First, you will need to install the {palmerpenguins} package.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> Then, load the package into R, using <code>library()</code>. Then, the dataset can be viewed by:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3919,8 +3923,8 @@ $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, 
 $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
 </div>
 </div>
-<p>Or, if you’re in RStudio, run <code>View(penguins)</code> to open an interactive data viewer similar to how you would view a dataset in SAS.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn10"><p><sup>10</sup> You can also double-click on the data in the top-right window in RStudio, under the ‘Environment’ tab.</p></div></div><p>Among the variables in <code>penguins</code> are:</p>
+<p>Or, if you’re in RStudio, run <code>View(penguins)</code> to open an interactive data viewer similar to how you would view a dataset in SAS.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn11"><p><sup>11</sup> You can also double-click on the data in the top-right window in RStudio, under the ‘Environment’ tab.</p></div></div><p>Among the variables in <code>penguins</code> are:</p>
 <ol type="1">
 <li><p><code>species</code>: a penguin’s species (Adelie, Chinstrap, or Gentoo).</p></li>
 <li><p><code>flipper_length_mm</code>: length of a penguin’s flipper, in millimeters.</p></li>
@@ -4083,20 +4087,506 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <p>We finally have a plot that matches that shown in <a href="#fig-ggplot-outcome" class="quarto-xref">Figure 3</a>!</p>
 </section>
 </section>
-<section id="the-tidyverse" class="level2">
+<section id="the-tidyverse" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-tidyverse">The Tidyverse</h2>
+<p>The tidyverse is a set of tools, originally created by <a href="https://hadley.nz/">Hadley Wickham</a>. All the packages within tidyverse share the same underlying design philosophy.</p>
+<p>One key idea of the tidyverse is the <em>pipe</em>, either <code>%&gt;%</code> or <code>|&gt;</code>. The pipe can be thought of as a process for taking a tibble (or dataframe) on the left, and performing some function to it on the right. For example, to take the <code>penguins</code> dataset used in <a href="#sec-gettingStarted-plot" class="quarto-xref">Section 3</a> and add a new variable that is the sum of the <code>bill_length_mm</code> and <code>flipper_length_mm</code>, we can use the <code>mutate()</code> function (from the <a href="https://dplyr.tidyverse.org/">{dplyr} package</a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-51"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-51-1"><a href="#annotated-cell-51-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-51" data-target-annotation="1">1</button><span id="annotated-cell-51-2" class="code-annotation-target"><a href="#annotated-cell-51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum_of_bill_flipper =</span> bill_length_mm <span class="sc">+</span> flipper_length_mm) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-51-3"><a href="#annotated-cell-51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-51" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-51" data-code-lines="2" data-code-annotation="1">Notice that here, we do not need to write <code>penguins$bill_length_mm</code>. This is because the pipe is telling <code>mutate()</code> that the dataset is <code>penguins</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 9
+$ species             &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Ad…
+$ island              &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm      &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1…
+$ bill_depth_mm       &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1…
+$ flipper_length_mm   &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 1…
+$ body_mass_g         &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475…
+$ sex                 &lt;fct&gt; male, female, female, NA, female, male, female, ma…
+$ year                &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 20…
+$ sum_of_bill_flipper &lt;dbl&gt; 220.1, 225.5, 235.3, NA, 229.7, 229.3, 219.9, 234.…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Pipe
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because of how popular the pipe has become, the pipe <code>|&gt;</code> is now included in base R. The other pipe, <code>%&gt;%</code>, is from the {magrittr} package. I will just use the base pipe here <code>|&gt;</code>, although there are some slight differences as explained in the <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">tidyverse blog</a>.</p>
+<p>Note that if your version of R is less that 4.1.0, the base pipe is not available. Therefore you will have to load tidyverse, <code>library(tidyverse)</code>, and use the {magrittr} pipe <code>%&gt;%</code>.</p>
+</div>
+</div>
+<section id="examples-of-data-wrangling-in-the-tidyverse" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="examples-of-data-wrangling-in-the-tidyverse">Examples of data wrangling in the tidyverse</h3>
+<p>Sticking with our <code>penguins</code> dataset, lets do some wrangling.</p>
+<p>What if we want to find the average bill length per year?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-52"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-52" data-target-annotation="1">1</button><span id="annotated-cell-52-1" class="code-annotation-target"><a href="#annotated-cell-52-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-52" data-target-annotation="2">2</button><span id="annotated-cell-52-2" class="code-annotation-target"><a href="#annotated-cell-52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-52" data-target-annotation="3">3</button><span id="annotated-cell-52-3" class="code-annotation-target"><a href="#annotated-cell-52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_bill =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-52" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-52" data-code-lines="1" data-code-annotation="1">Start with the <code>penguins</code> dataset</span>
+</dd>
+<dt data-target-cell="annotated-cell-52" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-52" data-code-lines="2" data-code-annotation="2">Group by the year, so any functions after this point are performed on each year seperately</span>
+</dd>
+<dt data-target-cell="annotated-cell-52" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-52" data-code-lines="3" data-code-annotation="3">Use the <a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>summarise</code> function</a> to find the mean. We need to use <code>na.rm = TRUE</code> to remove the <code>NA</code> values.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+   year average_bill
+  &lt;int&gt;        &lt;dbl&gt;
+1  2007         43.7
+2  2008         43.5
+3  2009         44.5</code></pre>
+</div>
+</div>
+<p>We haven’t saved this summary dataset, as we did not assign it to a new variable.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn12"><p><sup>12</sup> To assign it to a variable we need to use the <code>&lt;-</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>penguins_year_summary <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_bill =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div><p>We can group by multiple variables. Here, we are finding the average bill length for each year and each species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, species) <span class="sc">|&gt;</span> </span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">average_bill =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+# Groups:   year [3]
+   year species   average_bill
+  &lt;int&gt; &lt;fct&gt;            &lt;dbl&gt;
+1  2007 Adelie            38.8
+2  2007 Chinstrap         48.7
+3  2007 Gentoo            47.0
+4  2008 Adelie            38.6
+5  2008 Chinstrap         48.7
+6  2008 Gentoo            46.9
+7  2009 Adelie            39.0
+8  2009 Chinstrap         49.1
+9  2009 Gentoo            48.5</code></pre>
+</div>
+</div>
+<section id="using-mutate" class="level4">
+<h4 class="anchored" data-anchor-id="using-mutate">Using <code>mutate()</code></h4>
+<p>The <code>mutate()</code> function creates new columns that are functions of existing variables. It can also modify and delete columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># square the body mass</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_mass_squared_g =</span> body_mass_g<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, body_mass_squared_g &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># normalise the bill depth by the sample mean</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bill_depth_norm =</span> bill_depth_mm <span class="sc">/</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_depth_norm &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Performing operations on multiple columns: here we are using the <code>across()</code> function to round the columns <code>bill_length_mm</code>, <code>bill_depth_mm</code>, and <code>flipper_length_mm</code> to the nearest integer. Note that here the columns are overwritten.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(bill_length_mm, bill_depth_mm, flipper_length_mm), round))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen             39            19               181        3750
+ 2 Adelie  Torgersen             40            17               186        3800
+ 3 Adelie  Torgersen             40            18               195        3250
+ 4 Adelie  Torgersen             NA            NA                NA          NA
+ 5 Adelie  Torgersen             37            19               193        3450
+ 6 Adelie  Torgersen             39            21               190        3650
+ 7 Adelie  Torgersen             39            18               181        3625
+ 8 Adelie  Torgersen             39            20               195        4675
+ 9 Adelie  Torgersen             34            18               193        3475
+10 Adelie  Torgersen             42            20               190        4250
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="using-select" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="using-select">Using <code>select()</code></h4>
+<p>We can use <code>select()</code> to select columns. The <code>:</code> operator selects a range of consecutive variables. The <code>!</code> operator negates a selection.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 1
+   sex   
+   &lt;fct&gt; 
+ 1 male  
+ 2 female
+ 3 female
+ 4 &lt;NA&gt;  
+ 5 female
+ 6 male  
+ 7 female
+ 8 male  
+ 9 &lt;NA&gt;  
+10 &lt;NA&gt;  
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(body_mass_g<span class="sc">:</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 3
+   body_mass_g sex     year
+         &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1        3750 male    2007
+ 2        3800 female  2007
+ 3        3250 female  2007
+ 4          NA &lt;NA&gt;    2007
+ 5        3450 female  2007
+ 6        3650 male    2007
+ 7        3625 female  2007
+ 8        4675 male    2007
+ 9        3475 &lt;NA&gt;    2007
+10        4250 &lt;NA&gt;    2007
+# ℹ 334 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 7
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 1 more variable: year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>You can also select based on the name of the variables. Here we will select all variables that end with “_mm”.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn13"><p><sup>13</sup> See the <a href="https://tidyselect.r-lib.org/reference/starts_with.html">tidyselect website</a> for more information on pattern matching.</p></div></div><div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 3
+   bill_length_mm bill_depth_mm flipper_length_mm
+            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+ 1           39.1          18.7               181
+ 2           39.5          17.4               186
+ 3           40.3          18                 195
+ 4           NA            NA                  NA
+ 5           36.7          19.3               193
+ 6           39.3          20.6               190
+ 7           38.9          17.8               181
+ 8           39.2          19.6               195
+ 9           34.1          18.1               193
+10           42            20.2               190
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+<p>Or, all variables that do not end in “_mm”, using the <code>!</code> operator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">ends_with</span>(<span class="st">&quot;_mm&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 5
+   species island    body_mass_g sex     year
+   &lt;fct&gt;   &lt;fct&gt;           &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen        3750 male    2007
+ 2 Adelie  Torgersen        3800 female  2007
+ 3 Adelie  Torgersen        3250 female  2007
+ 4 Adelie  Torgersen          NA &lt;NA&gt;    2007
+ 5 Adelie  Torgersen        3450 female  2007
+ 6 Adelie  Torgersen        3650 male    2007
+ 7 Adelie  Torgersen        3625 female  2007
+ 8 Adelie  Torgersen        4675 male    2007
+ 9 Adelie  Torgersen        3475 &lt;NA&gt;    2007
+10 Adelie  Torgersen        4250 &lt;NA&gt;    2007
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="using-filter" class="level4">
+<h4 class="anchored" data-anchor-id="using-filter">Using <code>filter()</code></h4>
+<p>The <a href="https://dplyr.tidyverse.org/reference/filter.html"><code>filter()</code> function</a> keeps rows that match a condition.</p>
+<p>For example, if we want to keep all rows that satisfy some condition on the bill length.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bill length must be greater than 40mm</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 242 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           40.3          18                 195        3250
+ 2 Adelie  Torgersen           42            20.2               190        4250
+ 3 Adelie  Torgersen           41.1          17.6               182        3200
+ 4 Adelie  Torgersen           42.5          20.7               197        4500
+ 5 Adelie  Torgersen           46            21.5               194        4200
+ 6 Adelie  Biscoe              40.6          18.6               183        3550
+ 7 Adelie  Biscoe              40.5          17.9               187        3200
+ 8 Adelie  Biscoe              40.5          18.9               180        3950
+ 9 Adelie  Dream               40.9          18.9               184        3900
+10 Adelie  Dream               42.2          18.5               180        3550
+# ℹ 232 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bill length less than or equal to 35mm</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">&lt;=</span> <span class="dv">35</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           34.1          18.1               193        3475
+ 2 Adelie  Torgersen           34.6          21.1               198        4400
+ 3 Adelie  Torgersen           34.4          18.4               184        3325
+ 4 Adelie  Biscoe              35            17.9               190        3450
+ 5 Adelie  Biscoe              34.5          18.1               187        2900
+ 6 Adelie  Torgersen           33.5          19                 190        3600
+ 7 Adelie  Torgersen           34.6          17.2               189        3200
+ 8 Adelie  Dream               34            17.1               185        3400
+ 9 Adelie  Dream               33.1          16.1               178        2900
+10 Adelie  Biscoe              35            17.9               192        3725
+11 Adelie  Dream               32.1          15.5               188        3050
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bill length is greater than the mean bill length</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">&gt;</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 175 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           46            21.5               194        4200
+ 2 Adelie  Dream               44.1          19.7               196        4400
+ 3 Adelie  Torgersen           45.8          18.9               197        4150
+ 4 Adelie  Biscoe              45.6          20.3               191        4600
+ 5 Adelie  Torgersen           44.1          18                 210        4000
+ 6 Gentoo  Biscoe              46.1          13.2               211        4500
+ 7 Gentoo  Biscoe              50            16.3               230        5700
+ 8 Gentoo  Biscoe              48.7          14.1               210        4450
+ 9 Gentoo  Biscoe              50            15.2               218        5700
+10 Gentoo  Biscoe              47.6          14.5               215        5400
+# ℹ 165 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>We can also filter after grouping the variables. For example, if we want to only keep rows where the bill length is less than the mean bill length <em>for that specific species</em>, we can group by species before filtering.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bill_length_mm <span class="sc">&gt;</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 172 × 8
+# Groups:   species [3]
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           39.3          20.6               190        3650
+ 5 Adelie  Torgersen           38.9          17.8               181        3625
+ 6 Adelie  Torgersen           39.2          19.6               195        4675
+ 7 Adelie  Torgersen           42            20.2               190        4250
+ 8 Adelie  Torgersen           41.1          17.6               182        3200
+ 9 Adelie  Torgersen           42.5          20.7               197        4500
+10 Adelie  Torgersen           46            21.5               194        4200
+# ℹ 162 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>In the ungrouped version, <code>filter()</code> compares the value of <code>bill_length_mm</code> in each row to the global average (taken over the whole data set), keeping only the rows with <code>bill_length_mm</code> greater than this global average. In contrast, the grouped version calculates the average <code>bill_length_mm</code> separately for each <code>species</code> group, and keeps rows with <code>bill_length_mm</code> greater than the relevant within-species average.</p>
+</section>
+<section id="using-arrange" class="level4">
+<h4 class="anchored" data-anchor-id="using-arrange">Using <code>arrange()</code></h4>
+<p>We can use <code>arrange()</code> to order the rows of a data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange by body mass in ascending order</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Chinstrap Dream              46.9          16.6               192        2700
+ 2 Adelie    Biscoe             36.5          16.6               181        2850
+ 3 Adelie    Biscoe             36.4          17.1               184        2850
+ 4 Adelie    Biscoe             34.5          18.1               187        2900
+ 5 Adelie    Dream              33.1          16.1               178        2900
+ 6 Adelie    Torgers…           38.6          17                 188        2900
+ 7 Chinstrap Dream              43.2          16.6               187        2900
+ 8 Adelie    Biscoe             37.9          18.6               193        2925
+ 9 Adelie    Dream              37.5          18.9               179        2975
+10 Adelie    Dream              37            16.9               185        3000
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange by body mass in descending order</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Gentoo  Biscoe           49.2          15.2               221        6300
+ 2 Gentoo  Biscoe           59.6          17                 230        6050
+ 3 Gentoo  Biscoe           51.1          16.3               220        6000
+ 4 Gentoo  Biscoe           48.8          16.2               222        6000
+ 5 Gentoo  Biscoe           45.2          16.4               223        5950
+ 6 Gentoo  Biscoe           49.8          15.9               229        5950
+ 7 Gentoo  Biscoe           48.4          14.6               213        5850
+ 8 Gentoo  Biscoe           49.3          15.7               217        5850
+ 9 Gentoo  Biscoe           55.1          16                 230        5850
+10 Gentoo  Biscoe           49.5          16.2               229        5800
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange by bill length and flipper length</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bill_length_mm, flipper_length_mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Dream               32.1          15.5               188        3050
+ 2 Adelie  Dream               33.1          16.1               178        2900
+ 3 Adelie  Torgersen           33.5          19                 190        3600
+ 4 Adelie  Dream               34            17.1               185        3400
+ 5 Adelie  Torgersen           34.1          18.1               193        3475
+ 6 Adelie  Torgersen           34.4          18.4               184        3325
+ 7 Adelie  Biscoe              34.5          18.1               187        2900
+ 8 Adelie  Torgersen           34.6          17.2               189        3200
+ 9 Adelie  Torgersen           34.6          21.1               198        4400
+10 Adelie  Biscoe              35            17.9               190        3450
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Note that <code>arrange()</code> ignores groupings unless specifically told not to. Have a look at the help file, <code>?arrange</code> to see for yourself.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group penguins by species</span></span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>penguins_grouped <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species)</span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange() ignores grouping</span></span>
+<span id="cb125-6"><a href="#cb125-6" aria-hidden="true" tabindex="-1"></a>penguins_grouped <span class="sc">|&gt;</span></span>
+<span id="cb125-7"><a href="#cb125-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+# Groups:   species [3]
+   species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Chinstrap Dream              46.9          16.6               192        2700
+ 2 Adelie    Biscoe             36.5          16.6               181        2850
+ 3 Adelie    Biscoe             36.4          17.1               184        2850
+ 4 Adelie    Biscoe             34.5          18.1               187        2900
+ 5 Adelie    Dream              33.1          16.1               178        2900
+ 6 Adelie    Torgers…           38.6          17                 188        2900
+ 7 Chinstrap Dream              43.2          16.6               187        2900
+ 8 Adelie    Biscoe             37.9          18.6               193        2925
+ 9 Adelie    Dream              37.5          18.9               179        2975
+10 Adelie    Dream              37            16.9               185        3000
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># telling arrange() not to ignore the grouping</span></span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>penguins_grouped <span class="sc">|&gt;</span></span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(body_mass_g, <span class="at">.by_group =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+# Groups:   species [3]
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Biscoe              36.5          16.6               181        2850
+ 2 Adelie  Biscoe              36.4          17.1               184        2850
+ 3 Adelie  Biscoe              34.5          18.1               187        2900
+ 4 Adelie  Dream               33.1          16.1               178        2900
+ 5 Adelie  Torgersen           38.6          17                 188        2900
+ 6 Adelie  Biscoe              37.9          18.6               193        2925
+ 7 Adelie  Dream               37.5          18.9               179        2975
+ 8 Adelie  Dream               37            16.9               185        3000
+ 9 Adelie  Dream               37.3          16.8               192        3000
+10 Adelie  Torgersen           35.9          16.6               190        3050
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
 </section>
 <section id="performing-survival-analysis" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="performing-survival-analysis">Performing survival analysis</h2>
 <p>To perform survival analysis in R, we need to get the <a href="https://cran.r-project.org/package=survival">{survival} package</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The {survival} package comes with lots of example dataset (write <code>data(package = &quot;survival&quot;)</code> to see a list of them). We will be using the <code>lung</code> dataset. Currently, <code>lung</code> is a <code>data.frame</code><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>, so lets convert to a tibble and view it.</p>
-<div class="no-row-height column-margin column-container"><div id="fn11"><p><sup>11</sup> which can be seen by calling <code>class(lung)</code></p></div></div><div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>lung <span class="ot">&lt;-</span> <span class="fu">tibble</span>(lung)</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(lung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The {survival} package comes with lots of example dataset (write <code>data(package = &quot;survival&quot;)</code> to see a list of them). We will be using the <code>lung</code> dataset. Currently, <code>lung</code> is a <code>data.frame</code><a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>, so lets convert to a tibble and view it.</p>
+<div class="no-row-height column-margin column-container"><div id="fn14"><p><sup>14</sup> which can be seen by calling <code>class(lung)</code></p></div></div><div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>lung <span class="ot">&lt;-</span> <span class="fu">tibble</span>(lung)</span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(lung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 228
 Columns: 10
@@ -4136,8 +4626,8 @@ $ wt.loss   &lt;dbl&gt; NA, 15, 15, 11, 0, 0, 10, 1, 16, 34, 27, 23, 5, 32, 60, 
 </ul>
 <p>Lets have a look at how many individuals were censored, and how many died.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>lung <span class="sc">|&gt;</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>lung <span class="sc">|&gt;</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   status     n
@@ -4148,14 +4638,14 @@ $ wt.loss   &lt;dbl&gt; NA, 15, 15, 11, 0, 0, 10, 1, 16, 34, 27, 23, 5, 32, 60, 
 </div>
 <p>So, we have 63 individuals who were censored, and 165 who died. The first thing to notice here is that the <code>status</code> variable is coded in a unusual way. Normally, this variable would be <code>0</code> for alive and <code>1</code> for dead. So, lets recode.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>lung <span class="ot">&lt;-</span> lung <span class="sc">|&gt;</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">recode</span>(status, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span>)</span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="co"># check that the frequency is still the same, but with the new coding</span></span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>lung <span class="sc">%&gt;%</span></span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>lung <span class="ot">&lt;-</span> lung <span class="sc">|&gt;</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">recode</span>(status, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span>)</span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="co"># check that the frequency is still the same, but with the new coding</span></span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>lung <span class="sc">%&gt;%</span></span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   status     n
@@ -4630,7 +5120,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

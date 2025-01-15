@@ -19,7 +19,7 @@ tbl-cap-location: margin
 link-citations: true
 ---
 
-## Installing R and RStudio
+# Installing R and RStudio
 
 R is the main software we need, and RStudio is an IDE to make it easier to use R. You can run R without RStudio (*e.g.* in the terminal or using the packaged R GUI), but it is highly recommended to use RStudio as it makes your life a lot easier.
 
@@ -37,13 +37,13 @@ You should also download the latest RTools software from Software Centre.
 
 Install the latest R (currently 4.3.1), RTools (4.4), and RStudio (2022.07.2-576) from Software Centre. Install them in that order as you need R installed before using RStudio.
 
-### Testing it all works
+## Testing it all works
 
 Once you have install R, RTools and RStudio, check it all works by starting up RStudio. It should look similar to @fig-rstudio.
 
 ![RStudio should look very similar to this when opened for the first time. The console (left-hand pane) is where you can type commands for R.](./fig/rstudio.png){.lightbox #fig-rstudio}
 
-## Getting Started with R
+# Getting Started with R
 
 In it's simplest form, R is just a calculator. In the console, try typing `6 + 8`. The output should look like
 
@@ -69,7 +69,7 @@ x
 
 The main R data types are vectors, matrices and dataframes and tibbles. Tibbles are the odd one out here, as they don't come with base R, but are instead from a package known as {tidyverse}.
 
-### Vectors
+## Vectors
 
 Vectors are created using the `c()` function. For example, to create a vector of length four with elements 1, 3, 5 and 2, we write,
 
@@ -155,7 +155,7 @@ z <- c(0, 7, "cat", as.Date("1992-09-11"))
 z
 ```
 
-### Matrices
+## Matrices
 
 Matrices a two-dimensional objects which -- like vectors -- are all of the same type.
 
@@ -270,9 +270,9 @@ X * 5
 X * c(1, -1, 0)
 ```
 
-### Dataframes
+## Dataframes
 
-Dataframes are ways to store different types of data in one place - similar to how SAS datasets contain different types of data (numeric, character, logical, dates *etc.*).
+Dataframes are ways to store different types of data in one place - similar to how SAS datasets contain different types of data (numeric, character, logical, dates *etc.*). Each column must be the same length.
 
 ```{r}
 df <- data.frame(
@@ -286,6 +286,11 @@ class(df)
 
 df
 ```
+```{r}
+str(df) # <1>
+```
+1. The structure function `str()` is very useful for looking at data.
+
 You can extract columns using either their index or the column names with the `$` symbol. To obtain the second column, we can do either:
 
 ```{r}
@@ -294,7 +299,7 @@ df$strings
 ```
 
 
-### Tibbles
+## Tibbles
 
 Tibbles are modern versions of dataframes. They require the {tidyverse} package [@wickham2019tidyverse] to be installed. To do this, type `install.packages("tidyverse")` in the console. This only needs to be done once and installs the package onto the computer. Then, to use the package, we call it using the `library()` function, which needs to be run every time you start a new session.
 
@@ -312,8 +317,13 @@ The `glimspe()` function is very useful when looking at the data, especially if 
 ```{r}
 glimpse(mpg)
 ```
+As is the `str`ucture function, `str()`, which I frequently use to understand a dataset, or an output from a function.
 
-### Functions
+```{r}
+str(mpg)
+```
+
+## Functions
 
 Functions are the R equivalent of SAS macros. 
 R has a large number of inbuilt functions, such as `seq()`, `mean()`, `sum()`, `lm()`.^[A note on notation: if I am refering to a function in R, I will always include brackets at the end `()`.]
@@ -343,8 +353,7 @@ We can specify the length instead of the increments.
 ```{r}
 seq(1, 10, length.out = 14)
 ```
-
-#### Dealing with `NA`'s
+### Dealing with `NA`'s
 
 Missing data values in R appear as `NA`. We can create vectors (or matrices, dataframes, tibbles) with missing values.
 
@@ -360,7 +369,7 @@ mean(x1)
 
 The output is ``r mean(x1)``, which is sensible.^[R cannot read your mind, so doesn't know what to do with the missing value(s).] But, we can tell R to ignore the `NA` values when calculating the mean. Have a look at the help file, `?mean`, and see if you can do this.^[Hint: use the `na.rm` argument.]
 
-#### Creating our own function {#sec-gettingStarted-functions}
+### Creating our own function {#sec-gettingStarted-functions}
 
 Suppose we want to add together two numbers and divide by 5. We can do this in the console like so:
 ```{r}
@@ -385,7 +394,7 @@ Then, we can use this function to perform the operation.
 add_then_divide(x = number1, y = number2)
 ```
 
-## Creating a plot {#sec-gettingStarted-plot}
+# Creating a plot {#sec-gettingStarted-plot}
 
 In this chapter, we are going to produce a plot that looks like @fig-ggplot-outcome. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions^[e.g. try typing `plot(density(rnorm(100)))` to create a kernel density plot of 100 standard normal realisations.], but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.
 
@@ -417,7 +426,7 @@ ggplot(
 
 This chapter is adapted from @wickham2023r[Data Visualisation chapter], which can be read online for free [here](https://r4ds.hadley.nz/data-visualize).
 
-### The data
+## The data
 
 We will use data on penguins, obtained from the [{palmerpenguins}](https://allisonhorst.github.io/palmerpenguins/) package [@horst2020palmer]. This is a popular alternative to the [`iris` dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), which was created by Ronald Fisher.^[who was a eugenicist and took money from the tobacco industry to muddy the waters.]
 
@@ -458,7 +467,7 @@ Among the variables in `penguins` are:
 
 To learn more about `penguins`, open its help page by running `?penguins`.
 
-### Creating a ggplot
+## Creating a ggplot
 
 Let's recreate the plot in @fig-ggplot-outcome step-by-step.
 
@@ -531,7 +540,7 @@ Like R, ggplot2 subscribes to the philosophy that missing values should never si
 This type of warning is probably one of the most common types of warnings you will see when working with real data -- missing values are a very common issue.
 For the remaining plots in this chapter we will suppress this warning so it's not printed alongside every single plot we make.
 
-### Adding aesthetics and layers
+## Adding aesthetics and layers
 
 Scatterplots are useful for displaying the relationship between two numerical variables, but it's always a good idea to be skeptical of any apparent relationship between two variables and ask if there may be other variables that explain or change the nature of this apparent relationship.
 For example, does the relationship between flipper length and body mass differ by species?
@@ -669,7 +678,7 @@ ggplot(
 
 We finally have a plot that matches that shown in @fig-ggplot-outcome!
 
-## The Tidyverse
+# The Tidyverse
 
 The tidyverse is a set of tools, originally created by [Hadley Wickham](https://hadley.nz/). All the packages within tidyverse share the same underlying design philosophy. 
 
@@ -691,7 +700,7 @@ Because of how popular the pipe has become, the pipe `|>` is now included in bas
 Note that if your version of R is less that 4.1.0, the base pipe is not available. Therefore you will have to load tidyverse, `library(tidyverse)`, and use the {magrittr} pipe `%>%`.
 :::
 
-### Examples of data wrangling in the tidyverse
+## Examples of data wrangling in the tidyverse
 
 Sticking with our `penguins` dataset, lets do some wrangling. Here we use functions that are part of the {dplyr} package, which is included in the tidyverse.
 
@@ -724,7 +733,7 @@ penguins |>
   summarise(average_bill = mean(bill_length_mm, na.rm = TRUE)) 
 ```
 
-#### Using `mutate()`
+### Using `mutate()`
 
 The `mutate()` function creates new columns that are functions of existing variables. It can also modify and delete columns.
 
@@ -761,7 +770,7 @@ penguins |>
   mutate(across(c(bill_length_mm, bill_depth_mm, flipper_length_mm), round))
 ```
 
-#### Using `select()`
+### Using `select()`
 
 We can use `select()` to select columns. The `:` operator selects a range of consecutive variables. The `!` operator negates a selection.
 
@@ -789,7 +798,7 @@ penguins |>
   select(!ends_with("_mm"))
 ```
 
-#### Using `filter()`
+### Using `filter()`
 
 The [`filter()` function](https://dplyr.tidyverse.org/reference/filter.html) keeps rows that match a condition.
 
@@ -819,7 +828,7 @@ penguins |>
 
 In the ungrouped version, `filter()` compares the value of `bill_length_mm` in each row to the global average (taken over the whole data set), keeping only the rows with `bill_length_mm` greater than this global average. In contrast, the grouped version calculates the average `bill_length_mm` separately for each `species` group, and keeps rows with `bill_length_mm` greater than the relevant within-species average.
 
-#### Using `arrange()`
+### Using `arrange()`
 
 We can use `arrange()` to order the rows of a data frame.
 
@@ -853,9 +862,201 @@ penguins_grouped |>
   arrange(body_mass_g, .by_group = TRUE)
 ```
 
-## Linear and logistic regression
+# Linear and Logistic Regression {#sec-gettingStarted-lin-log-reg}
 
-## Performing survival analysis
+We will continue looking at the `penguins` dataset here. First, lets get some summary statistics using the `summary()` function.
+
+```{r}
+summary(penguins)
+```
+
+## Linear regression
+
+To perform linear regression, we can use the `lm()` function. The two main arguments of `lm()` are:
+
+- `formula`:	A formula in the form `y ~ x1 + x2 + ...` where `y` is the dependent variable, and `x1`, `x2`, … are the independent variables. If you want to include all columns (excluding y) as independent variables, just enter `y ~ .`
+- `data`: The dataframe containing the columns specified in the formula.
+
+Have a look at the helpfile, `?lm`, alongside the formula helpfile, `?formula`, to get a deeper understanding of how the function works. The `formula` syntax is also used in survival analysis in @sec-gettingStarted-surv, so is important to understand. 
+
+### A simple linear model
+
+Lets perform linear analysis on the penguin's body mass and flipper length. We have seen this graphically in @fig-ggplot-outcome but we want to look in more detail at the intercepts and slope coefficients. We are assuming the linear model given by,
+
+$$
+Y_{\text{body mass}} = \beta_0 + \beta_1 X_{\text{flipper length}} + \varepsilon,
+$$
+where $\beta_0$ is the intercept and $\beta_1$ the coefficient for flipper length such that for every 1mm increase in flipper length, we expect body mass to increase by $\beta_1$. We assume that the residual term is distributed by some zero-mean Gaussian, $\varepsilon \sim N(0, \sigma_\varepsilon)$.
+
+We have `body_mass_g` the dependent variable and `flipper_length_mm` the independent variable, so our `formula` is `body_mass_g ~ flipper_length_mm`.
+
+```{r}
+penguins_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+
+penguins_lm
+```
+::: {.callout-note}
+# Using the pipe
+
+Note that with the `lm()` function, by looking at the help file, we can see that the `data = ` argument is not the first one. This is different to how standard tidyverse function work, *e.g.* have a look at `?mutate`.^[The `lm()` function was created long before the tidyverse so doesn't follow the same rules.] This makes it a little trickier to use the pipe `|>`, as by default this pipes the left-hand side into the first argument of the right-hand side.
+
+But, it can still be done, using `_` to clarify where we want the data piped to.
+
+```{r}
+#| eval: false
+penguins |>
+  lm(body_mass_g ~ flipper_length_mm, data = _)
+```
+:::
+
+A more detailed output can be obtained using the `summary()` function.^[`summary()` is a very general and very useful function that can be used on lots of different classes of data. For example, at the start of this chapter (@sec-gettingStarted-lin-log-reg) we applied the function to a tibble.]
+
+```{r}
+summary(penguins_lm)
+```
+What does this output show?
+
+- *Residuals*: a summary of the residuals, showing the minimum, maximum and quartiles.
+- *Coefficients*: 
+  - the point estimate and standard error for the intercept and slope.
+  - the t-value and p-value of the intercept and slopes
+- *Residual standard error*: the standard deviation of the residuals, *i.e.* the typical deviation of the observed `body_mass_g` values from the predicted values.
+- *R-squared and adjusted R-squared*: how much variability is explained by the model.
+- *F-statistic*: testing overall model fit.
+
+This linear model is the same as the line shown in @fig-ggplot-outcome.
+
+#### Evaluation model fit
+
+We can perform residual analysis by looking at plots, as described on the . The `plot()` function with the `penguins_lm` object outputs four sepearate plots (which you can toggle through by pressing '<Return>'):
+
+1. *Residuals vs. Fitted plot*: used to look for underlying patterns in the residuals.
+2. *Normal Q–Q plot*: used to check whether the residuals are normally distributed.
+3. *Scale-location plot*: test the linear regression assumption of equal variance (homoscedasticity).
+4. *Residuals vs. Leverage plot*: used to find influential cases in the dataset.
+
+These are discussed in more detail on the [RPubs website](https://rpubs.com/iabrady/residual-analysis).
+
+```{r}
+#| layout-ncol: 2
+#| fig-asp: 1
+
+plot(penguins_lm)
+```
+
+### Some more linear model examples
+
+Some more examples of linear models. 
+
+```{r}
+# modelling body mass by flipper length and sex.
+penguins_lm2 <- lm(body_mass_g ~ flipper_length_mm + sex, data = penguins)
+summary(penguins_lm2)
+
+# modelling body mass by flipper length and the exponential log of bill_depth_mm
+summary(lm(body_mass_g ~ flipper_length_mm + log(bill_depth_mm), data = penguins))
+
+# including all variables
+summary(lm(body_mass_g ~ ., data = penguins))
+```
+
+
+We can consider interactions, using `*`. This automatically includes the main effects in the model.[^note3]
+
+[^note3]: You can also use `:` for interactions, but here you also have to specify the terms individually, e.g. 
+    ```r
+    lm(body_mass_g ~ flipper_length_mm + bill_depth_mm + flipper_length_mm : bill_depth_mm, 
+        data = penguins)
+    ```
+    
+```{r}
+summary(lm(body_mass_g ~ flipper_length_mm * bill_depth_mm, data = penguins))
+```
+From this output, the interaction between flipper length and bill depth can be interpreted as follows: For every 1mm increase in both flipper length and bill depth, the predicted effect on body mass decreases by $8.596$ grams. 
+The very small p-value ($4.78 \times 10^{−10}$) indicates strong evidence that the relationship between flipper length and body mass depends on bill depth.
+
+## Logistic regression
+
+The syntax for (binary) logistic regression is very similar to that for linear regression, except that the `g`eneralised `l`inear `m`odel function, `glm()` is used instead of `lm()`.
+
+In this section we'll be assuming that the dependent variable is `sex` -- a binary variable. Let start with just considering `sex` against `bill_length_mm`.
+
+```{r}
+ggplot(penguins, aes(x = bill_length_mm, y = sex)) +
+  geom_point() +
+  labs(
+    title = "Males have larger bill lengths in general",
+    subtitle = "A graph showing bill length, split by sex",
+    x = "Bill length (mm)",
+    y = "Sex"
+  ) +
+  theme_minimal()
+```
+
+I'm getting bored of the warnings about missing values, so lets remove all rows that contain an `NA` from our dataset.[^note5]
+
+[^note5]: You should probably take care doing this if you are trying to do proper statistical analysis. There is a package called [`visdat`](https://cran.r-project.org/web/packages/visdat/vignettes/using_visdat.html) that can help you visualise data. In this case, it can create a plot showing where the missing data is and the class of each variable. Notice that here our `year` variable is of class integer, not date. If we had a full date (e.g. DD/MM/YY) we could change this to a Date class and use the [{lubridate}](https://lubridate.tidyverse.org/) package to perform operations.
+    ```{r}
+    #| lightbox: true
+    library(visdat)
+    vis_dat(penguins)
+    ```
+
+```{r}
+penguins_narm <- penguins |>
+  na.omit()
+```
+
+Here we create a logistic regression model to predict the gender of the penguins.
+
+```{r}
+penguins_glm <- glm(sex ~ bill_length_mm, 
+                    data = penguins_narm, family = binomial(link = "logit")) # <1>
+summary(penguins_glm)
+```
+1. A logistic regression model is a specific generalised linear model with the response variable modeled using a binomial distribution and a logit link function.
+
+The model suggests that `bill_length_mm` is a significant predictor of `sex`. Specifically:
+
+- For every 1-mm increase in bill_length_mm, the log odds of being in the other category ("Male") increase by $0.138$.
+- The coefficient is statistically significant, and therefore out model suggests that `bill_length_mm` is associated with `sex`.
+- The odds ratio for `bill_length_mm` is $e^{0.1377} \approx `r round(exp(penguins_glm$coefficients[2]), 3)`$.[^note6] This means that for every 1mm increase in bill length, the odds of being male are approximately $`r (round(exp(penguins_glm$coefficients[2]), 3) - 1) * 100` \%$ higher.
+
+[^note6]: The `str()` function comes in very handy when extracting specific bits of data from a dataset. Try typing `str(penguins_glm)`. This is a lot of information, but it allows us to see that the coefficients are stored in a vector called `coefficient`. This can be extracted using `penguins_glm$coefficients`. Therefore, `exp(penguins_glm$coefficients[2])` gives the odds ratio for `bill_length_mm`.
+
+::: {.callout-note collapse="true"}
+# Changing the reference level
+
+If we wanted `male` to be the reference level instead of `female`, we can reorder the `sex` factor levels using `fct_relevel()`.
+
+```{r}
+# look at the levels
+levels(penguins_narm$sex) # <1>
+```
+1. The first factor in the output of `levels()` is used as the reference factor in `lm()` and `glm()`.
+```{r}
+# relevel 'sex' to make "male" the reference class
+penguins_narm_relevel <- penguins_narm |>
+  mutate(
+    sex = fct_relevel(sex, "male")
+  )
+```
+```{r}
+# check the level order has changed
+levels(penguins_narm_relevel$sex)
+```
+```{r}
+penguins_glm <- glm(sex ~ bill_length_mm, 
+                    data = penguins_narm, family = binomial(link = "logit")) 
+summary(penguins_glm)
+```
+
+:::
+
+### Plotting logistic regression
+
+
+# Performing survival analysis {#sec-gettingStarted-surv}
 
 To perform survival analysis in R, we need to get the [{survival} package](https://cran.r-project.org/package=survival).
 
@@ -863,7 +1064,7 @@ To perform survival analysis in R, we need to get the [{survival} package](https
 library(survival)
 ```
 
-### Loading the example data
+## Loading the example data
 
 The {survival} package comes with lots of example dataset (write `data(package = "survival")` to see a list of them). We will be using the `lung` dataset. Currently, `lung` is a `data.frame`^[which can be seen by calling `class(lung)`], so lets convert to a tibble and view it.
 
@@ -924,7 +1125,7 @@ lung %>%
 
 OK, we have a nicer dataset now. Lets look at doing some survival analysis.
 
-### Creating a survival object
+## Creating a survival object
 
 The core functions of the {survival} package include:
 
@@ -962,7 +1163,7 @@ Run `?Surv` in the console and have a look at the "Note" section near the bottom
 *A question*: what would the output look like if we didn't record the `status` variable to 0 / 1?
 :::
 
-### Fitting a survival curve
+## Fitting a survival curve
 
 To fit a survival curve, we use the `survfit()` function. To create a simple survival curve that doesn't consider any different groupings, we just specify the intercept, `~1`, in the `formula` argument.^[Look at `?survfit` for help.]
 
@@ -1011,9 +1212,14 @@ The `summary()` function gives a more detailed breakdown of the Kaplan-Meier sur
 - `n.risk`: The number of individuals at risk of experiencing the event at that time.
 - `n.event`: The number of events (deaths) that occurred at each time point.
 - `Pr((s0))`: The survival probability (*i.e.* the probability of staying in the initial state (alive) at that time).
-- `Pr(1)`: The cumulative probability of transitioning to the event state (death), *i.e.* $1 - $ survival probability.
+- `Pr(1)`: The cumulative probability of transitioning to the event state (death), *i.e.* 1 - survival probability.
 
 For example, at `time = 5`, we have:
+
+```
+ time n.risk n.event Pr((s0))   Pr(1)
+    5    228       1   0.9956 0.00439
+```
 
 - `n.risk`: 228 individuals at risk at day 5.
 - `n.event`: 1 individual died at day 5.

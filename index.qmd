@@ -394,6 +394,145 @@ Then, we can use this function to perform the operation.
 add_then_divide(x = number1, y = number2)
 ```
 
+## Loading data
+
+Here we will look at loading data from excel, a csv file and from a SAS dataset.
+
+### Reading an excel file
+
+To read excel files, we will use the `read_excel()` function which is in the {realxl} package (part of the tidyverse). Although {realxl} is part of the tidyverse, it is not a core tidyverse package, and therefore needs to be loaded explicity, using `library(tidyverse)`. The `read_excel()` function supports both the legacy `.xls` format and the modern `.xlsx` format.
+
+```{r}
+library(readxl)
+```
+
+We are going to download an excel file and then read it into R. 
+I have created an excel file (`.xlsx`) using the `mtcars` dataset. Download this file by clicking the button below:
+
+```{r}
+#| echo: false
+
+library(downloadthis)
+
+mtcars %>%
+  download_this(
+    output_name = "example_data_set",
+    output_extension = ".xlsx",
+    button_label = "Download excel data",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+
+Have a look at the `read_excel()` helpfile, and note that the `path` argument is the only one that doesn't have a default value. This means we need to assign something to it. The excel spreadsheet you just downloaded should be called `example_data_set.xlsx`, and we have two options to make sure R knows where it is:
+
+1. Move the `example_data_set.xlsx` file to the folder that R is currently working in. This can be seen by calling `getwd()`.
+2. Put the path of the `example_data_set.xlsx` file into the `path` argument of `read_excel()`.
+
+For option one, to load this excel spreadsheet into R, we would move the file into our current working folder and then do the following:
+```{r}
+example_excel1 <- read_excel(path = "example_data_set.xlsx")
+```
+
+For option two, we can use the full path of the file.
+```{r}
+#| eval: false
+
+example_excel2 <- read_excel(
+  path = "C:/Users/smit0335/Downloads/example_data_set.xlsx" # <1>
+  ) 
+```
+1. Your absolute path will be different to mine! We need to use forward slashes here, `/`, not backslashes.
+
+You can also use relative paths, for example setting `path = "../data/example_data_set.xlsx"` would go up one folder, then into the "data" folder, and then read the excel spreadsheet from there.
+
+Have a look at the data we've just loaded.
+
+```{r}
+example_excel1
+```
+
+### Reading a csv file
+
+This is very similar to reading in an excel file, except we now use the `read_csv` function (this is from the {readr} package, which is included in the core tidyverse package^[That is, `library(tidyverse)` also loads {readr}.]). Download the below dataset:
+
+```{r}
+#| echo: false
+
+
+mtcars %>%
+  download_this(
+    output_name = "example_csv_data",
+    output_extension = ".csv",
+    button_label = "Download data as csv",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+If you open this in Notepad (right click, 'open with', 'Notepad'), you will see that the every element is seperated by a semicolon, `;`. Often in `.csv` files, the deliminator is either a comma, `,`, or a semicolon, `;`, so we need to make sure this is sepecified when loading in the dataset. You will also see that decimal points are given by commas, `,`.
+
+Now, the description in the help file `?read_csv`, says 
+
+> `read_csv2()` uses `;` for the field separator and `,` for the decimal point.
+
+This is what we have, so lets use `read_csv2()` instead!
+
+```{r}
+example_csv <- read_csv2("example_csv_data.csv")
+```
+This message output is telling us the following:
+
+- The dataset contains 32 rows and 11 columns.
+- The delimited is `;`.
+- `dbl` (double): all 11 columns are interpreted as numeric values of type double (floating-point numbers).
+
+ We will discuss different types of variables later in this tutorial.
+
+```{r}
+example_csv
+```
+
+::: {.callout-tip collapse="true"}
+# Specifying column types
+
+We can specify the column types when loading in the dataset. Types of data are discussed later on in this tutorial. The dataset in `example_csv` is the `mtcars` dataset, so by looking at the helpfile, `?mtcars`, I think the `cyl`, `gear` and `carb` variables should be factors and the `vs`, `am` variables should be logical.
+
+To specify this when loading the data, we would use the `col_types` argument and the compact string representation as discussed in the help file, `?read_delim`.
+
+```{r}
+#| warning: false
+
+read_csv2("example_csv_data.csv", col_types = "dfdddddllff")
+```
+:::
+
+### Reading a SAS data file
+
+To read in a SAS data file -- a file that ends in `.sas7bdat` -- we need to use the {haven} package [@wickham2023haven]. This is part of the tidyverse but needs to be loaded separately.
+```{r}
+library(haven)
+```
+
+The [package overview](https://haven.tidyverse.org/index.html) says:
+
+> `read_sas()` reads `.sas7bdat` + `.sas7bcat` files and `read_xpt()` reads SAS transport files (versions 5 and 8). `write_xpt()` writes SAS transport files (versions 5 and 8).
+
+Here, we're just going to load the `iris` dataset that is included as an example in the {haven} package. We use the `system.file()` to obtain the path where the dataset is saved.
+
+```{r}
+path <- system.file("examples", "iris.sas7bdat", package = "haven") # <1>
+my_sas_dataset <- read_sas(path)
+my_sas_dataset # <2>
+```
+1. You can see what this path is by typing `path` in the console.
+2. Notice that the output has automatically set some columns to the `dbl` and the `Species` column to be `chr` (*i.e.* a string).
+
+We can also create SAS transport files from R using the `write_xpt()` function. Don't use `write_sas()`, as it is depreciated, as described in the help file, `?write_sas()`.
+
 # Creating a plot {#sec-gettingStarted-plot}
 
 In this chapter, we are going to produce a plot that looks like @fig-ggplot-outcome. This uses the {ggplot2} package, which is included in the {tidyverse} package we loaded earlier. We can also produce plots using base R functions^[e.g. try typing `plot(density(rnorm(100)))` to create a kernel density plot of 100 standard normal realisations.], but I feel like ggplot is more user friendly and can create nicer looking plots with less effort.
@@ -928,7 +1067,7 @@ This linear model is the same as the line shown in @fig-ggplot-outcome.
 
 #### Evaluation model fit
 
-We can perform residual analysis by looking at plots, as described on the . The `plot()` function with the `penguins_lm` object outputs four sepearate plots (which you can toggle through by pressing '<Return>'):
+We can perform residual analysis by looking at plots, as described on the . The `plot()` function with the `penguins_lm` object outputs four sepearate plots (which you can toggle through by pressing `<Return>`):
 
 1. *Residuals vs. Fitted plot*: used to look for underlying patterns in the residuals.
 2. *Normal Q–Q plot*: used to check whether the residuals are normally distributed.
@@ -1160,7 +1299,7 @@ For example,
 
 Run `?Surv` in the console and have a look at the "Note" section near the bottom. 
 
-*A question*: what would the output look like if we didn't record the `status` variable to 0 / 1?
+*A question*: what would the output look like if we didn't record the `status` variable to 0 / 1? Would it make a different?
 :::
 
 ## Fitting a survival curve
